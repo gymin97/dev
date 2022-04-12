@@ -33,7 +33,7 @@ jobs:
           run: |
             chmod -x ./gradlew
             ./gradlew build --no-daemon 
-            ls ./build/libs
+      - run: ls ./build/libs
 
       # Runs a single command using the runners shell
       - name: ls
