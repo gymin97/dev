@@ -34,8 +34,8 @@ jobs:
             chmod -x ./gradlew
             ./gradlew build --no-daemon
       
-      - name: check build
-        run: ls ./build/lib
+#       - name: check build
+#         run: ls ./build/libs
         
       # Runs a single command using the runners shell
       - name: ls
