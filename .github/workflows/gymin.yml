@@ -48,10 +48,10 @@ jobs:
       - name: docker ps
         run: docker ps
 
-      # Runs a single command using the runners shell
-      - name: ls
-        run: ls -al
-
-      # Runs a set of commands using the runners shell
-      - name: echo
-        run: echo "This is Checkout"
+      - name: copy war file
+        run: |
+              cp ./build/libs/*.war ./Dockerfile
+              docker build -t test ./Dockerfile
+              docker images
+        
+        
