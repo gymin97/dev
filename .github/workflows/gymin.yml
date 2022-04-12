@@ -31,9 +31,9 @@ jobs:
           java-version: '11'
           cache: 'gradle'
           run: |
-            chmod -x ./gradlew
+            chmod +x ./gradlew
             ./gradlew build --no-daemon 
-      - run: ls ./build/libs
+            ls ./build/libs
 
       # Runs a single command using the runners shell
       - name: ls
