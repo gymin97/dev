@@ -30,8 +30,13 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
           cache: 'gradle'
-#       - run: ./gradlew build --no-daemon
+          run: |
+            chmod -x ./gradlew
+            ./gradlew build --no-daemon
       
+      - name: check build
+        run: ls ./build/lib
+        
       # Runs a single command using the runners shell
       - name: ls
         run: ls -al
