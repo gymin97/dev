@@ -71,3 +71,6 @@ jobs:
           project_id: annular-magnet-343008
           credentials: ${{ secrets.GKE_SERVICE_KEY }}
           context_name: gcloud container clusters get-credentials gymin --zone us-central1-c --project annular-magnet-343008
+          
+      - name: Was-delpoy restart
+        run: kubectl rollout restart deployment/was
