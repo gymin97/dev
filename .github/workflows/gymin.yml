@@ -47,7 +47,7 @@ jobs:
         run: |
               cp ./build/libs/*.war ./Dockerfile
               docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-latest ./Dockerfile
-              docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-$(date +%y-%m-%d-%H-%M) ./Dockerfile
+              docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tomcat-backup:tomcat-$(date +%y-%m-%d-%H-%M) ./Dockerfile
               docker images
 
       - name: Login to Docker Hub
@@ -59,7 +59,7 @@ jobs:
       - name: Docker Push
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-$(date +%y-%m-%d-%H-%M)
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tomcat-backup:tomcat-$(date +%y-%m-%d-%H-%M)
           
           
       - name: Get GKE Credentials
@@ -88,9 +88,3 @@ jobs:
           destination: war-backup
           glob: '*.war'
           
-
-
-
-
-
-
