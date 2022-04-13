@@ -15,9 +15,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     
-    env: 
-      DATE: $(date +%y-%m-%d-%H-%M)
-      
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -51,7 +48,7 @@ jobs:
           cp ./build/libs/*.war ./Dockerfile
           docker build \
           -t ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-latest \
-          -t ${{ secrets.DOCKERHUB_USERNAME }}/tomcat-backup:tomcat-${DATE} ./Dockerfile
+          -t ${{ secrets.DOCKERHUB_USERNAME }}/tomcat-backup:tomcat-$(date +%y-%m-%d-%H-%M) ./Dockerfile
           docker images
 
       - name: Login to Docker Hub
@@ -78,7 +75,7 @@ jobs:
         run: kubectl rollout restart deployment/was
       
       - name: filename change
-        run: mv ./build/libs/*.war ./build/libs/env.DATE.war
+        run: mv ./build/libs/*.war ./build/libs/$(date +%y-%m-%d-%H-%M).war
             
       - name: Cloud Storage Uploader
         uses: google-github-actions/upload-cloud-storage@v0.9.0
