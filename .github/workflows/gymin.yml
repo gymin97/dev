@@ -76,6 +76,7 @@ jobs:
           credentials: ${{ secrets.GKE_STORAGE_KEY }}
           path: ./build/libs/
           destination: war-backup
+          glob: '*.war'
           
 
 
