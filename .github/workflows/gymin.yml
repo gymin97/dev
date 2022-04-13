@@ -47,6 +47,7 @@ jobs:
         run: |
               cp ./build/libs/*.war ./Dockerfile
               docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-latest ./Dockerfile
+              docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-$(date +%y-%m-%d-%H:%M) ./Dockerfile
               docker images
 
       - name: Login to Docker Hub
@@ -56,8 +57,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Docker Push
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-latest
-
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/m-dev:tomcat-$(date +%y-%m-%d-%H:%M)
+          
+          
       - name: Get GKE Credentials
         uses: google-github-actions/get-gke-credentials@v0.7.0
         with:
@@ -69,7 +73,6 @@ jobs:
           
       - name: Was-delpoy restart
         run: kubectl rollout restart deployment/was
-      
       
       - name: filename change
         run: |
@@ -85,8 +88,6 @@ jobs:
           destination: war-backup
           glob: '*.war'
           
-
-
 
 
 
