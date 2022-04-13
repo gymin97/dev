@@ -7,11 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -75,13 +70,11 @@ jobs:
       - name: Was-delpoy restart
         run: kubectl rollout restart deployment/was
         
-      - run: ls ./build/libs/ >> $WAR_NAME
-        
       - name: Cloud Storage Uploader
         uses: google-github-actions/upload-cloud-storage@v0.9.0
         with:
           credentials: ${{ secrets.GKE_STORAGE_KEY }}
-          path: ./build/libs/${{ WAR_NAME }}
+          path: ./build/libs/
           destination: war-backup
           
 
